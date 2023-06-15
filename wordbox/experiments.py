@@ -2,10 +2,10 @@
 Use sacred to run experiments.
 """
 
-from sacred import Experiment
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
-from time import sleep
+from sacred import Experiment
 from sacred.utils import TimeoutInterrupt
+from pysat.card import EncType
 from .solve_glue import run_solver
 
 ex = Experiment('Word Box')
@@ -19,7 +19,7 @@ def wordbox_config():
     solver = 'cadical153'
     coloring = True
     bip = True
-    cardinality = -1 # No extra cardinality constraints
+    cardinality = EncType.totalizer # -1 means none
     time_limit = -1.0 # no limit
 
 @ex.main

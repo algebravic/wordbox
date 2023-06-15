@@ -2,8 +2,8 @@
 The list of parameters to run for a particular wordbox instance
 """
 from itertools import product, islice
-from .solver_stuff import ENCODINGS, SELECTED_SOLVERS, SPECIALIZED
 from pysat.card import EncType
+from .solver_stuff import ENCODINGS, SELECTED_SOLVERS, SPECIALIZED
 from .get_file_info import completed
 
 def get_configs():
@@ -25,6 +25,7 @@ def get_configs():
 
 def good_problems(file_observer, mval, nval, wordlist,
                   time_limit=-1.0, start=0, rerun=False):
+    """ The configurations for the problems to be run """
     myruns = completed(file_observer)
     for config in islice(get_configs(), start, None):
         config.update(

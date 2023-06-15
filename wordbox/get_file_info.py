@@ -1,12 +1,11 @@
 """
 Get information from a file observer
 """
-
 import json
 from pathlib import Path
 
 def info(filepath):
-
+    """ Information from an experiment directory """
     obs_dir = Path(filepath)
 
     for run_dir in obs_dir.glob('*'):
@@ -14,29 +13,29 @@ def info(filepath):
         if not serial.isnumeric():
             continue
         try:
-            with (run_dir / 'config.json').open() as f:
-                config = json.load(f)
+            with (run_dir / 'config.json').open() as fil:
+                config = json.load(fil)
         except FileNotFoundError:
-            print("Entry {} has no config, skipping".format(serial))
+            print(f"Entry {serial} has no config, skipping")
             continue
 
         try:
-            with (run_dir / 'cout.txt').open() as f:
-                cout = f.read()
+            with (run_dir / 'cout.txt').open() as fil:
+                cout = fil.read()
         except FileNotFoundError:
             cout = None
 
         try:
-            with (run_dir / 'metrics.json').open() as f:
-                metrics = json.load(f)
+            with (run_dir / 'metrics.json').open() as fil:
+                metrics = json.load(fil)
         except FileNotFoundError:
             metrics = None
 
         try:
-            with (run_dir / 'run.json').open() as f:
-                run = json.load(f)
+            with (run_dir / 'run.json').open() as fil:
+                run = json.load(fil)
         except FileNotFoundError:
-            run = dict(status="MISSING")
+            run = {"status":"MISSING"}
 
         run.update(
             serial=serial,
@@ -60,8 +59,3 @@ def completed(filepath):
                 del config['time_limit']
             good.add(tuple(sorted(config.items())))
     return good
-
-
-            
-
-    

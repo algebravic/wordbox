@@ -1,5 +1,6 @@
-from pysat.solvers import SolverNames
+""" Definitions for solvers and cardinality constraints """
 from inspect import getmembers
+from pysat.solvers import SolverNames
 from pysat.card import EncType
 
 ENCODINGS = [EncType.bitwise, EncType.cardnetwrk, EncType.kmtotalizer,

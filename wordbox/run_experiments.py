@@ -1,16 +1,11 @@
 """
 Run a bunch of experiments.
 """
-
 import argparse
-from itertools import islice
 from sacred.observers import FileStorageObserver, MongoObserver, TinyDbObserver
-from itertools import product
-from threading import Timer
 from pysat.card import EncType
 from .experiments import ex
-from .configurations import get_configs, good_problems
-from pathlib import Path
+from .configurations import good_problems
 from .solve_glue import DATADIR
 
 FILE_OBSERVER = DATADIR / 'wordbox'
@@ -20,10 +15,14 @@ FILE_OBSERVER = DATADIR / 'wordbox'
 ex.observers.append(FileStorageObserver(FILE_OBSERVER))
 
 def run_solvers(mval, nval, wordlist, time_limit=-1.0, start=0, rerun=False):
-    for config in good_problems(FILE_OBSERVER, mval, nval, wordlist, time_limit=time_limit, start=start, rerun=rerun):
+    """ Run the expeiment with all solvers on the list """
+    for config in good_problems(FILE_OBSERVER, mval, nval, wordlist,
+                                time_limit=time_limit,
+                                start=start, rerun=rerun):
         ex.run(config_updates=config)
-        
+
 def main():
+    """ The main command line for experiments """
     parser = argparse.ArgumentParser(description="Wordbox Problem")
     parser.add_argument('mval', type=int, default=5,
                         help='The width of the wordbox')
@@ -44,8 +43,8 @@ def main():
                         help='Should we rerun previously completed instances?')
 
     args = parser.parse_args()
-    run_solvers(args.mval, args.nval, args.wordlist, time_limit=args.time_limit, start=args.start, rerun=args.rerun)
+    run_solvers(args.mval, args.nval, args.wordlist,
+                time_limit=args.time_limit, start=args.start, rerun=args.rerun)
 
 if __name__ == '__main__':
     main()
-    
