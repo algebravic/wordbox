@@ -10,12 +10,12 @@ ENCODINGS = [EncType.bitwise, EncType.cardnetwrk, EncType.kmtotalizer,
 SPECIALIZED = [EncType.pairwise,
                EncType.ladder]
 
-SOLVERS = ['cadical', 'glucose3', 'glucose4', 'gluecard3',
+SOLVERS = ['cadical153', 'cadical103', 'glucose3', 'glucose4', 'gluecard3',
            'gluecard4', 'lingeling', 'maplechrono', 'maplecm',
            'maplesat', 'mergesat3', 'minicard', 'minisat22',
            'minisatgh']
 
-SELECTED_SOLVERS = ['cadical', 'glucose4', 'gluecard4', 'lingeling',
+SELECTED_SOLVERS = ['cadical153', 'glucose4', 'gluecard4', 'lingeling',
            'maplechrono', 'maplecm', 'maplesat', 'mergesat3',
            'minicard', 'minisat22']
 
